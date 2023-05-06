@@ -1,7 +1,7 @@
-import UYUXGateway from "./gateway";
-import UYUXAuth from "./auth";
-import UYUXAccount from "./account";
-import UYUXSBT from "./sbt";
+import UYUXGateway from "./src/lib/gateway";
+import UYUXAuth from "./src/lib/auth";
+import UYUXAccount from "./src/lib/account";
+import UYUXSBT from "./src/lib/sbt";
 
 export default class UYUXClient {
   private gateway: UYUXGateway;
@@ -16,8 +16,8 @@ export default class UYUXClient {
     this.sbt = new UYUXSBT(this);
   }
 
-  get<T = any>(uri: string, params: Record<string, any> = {}) {
-    return this.gateway.get<T>(uri, params);
+  get<T = any>(uri: string) {
+    return this.gateway.get<T>(uri);
   }
 
   post<T = any>(uri: string, params: Record<string, any> = {}) {

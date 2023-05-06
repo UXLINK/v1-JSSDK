@@ -1,5 +1,5 @@
 // SBT管理模块
-import UYUXClint from "./index";
+import UYUXClint from "../../index";
 
 export default class UYUXSBT {
   private client: UYUXClint;

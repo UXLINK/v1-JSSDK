@@ -1,6 +1,6 @@
 // 社交账号授权模块
 
-import UYUXClint from "./index";
+import UYUXClint from "../../index";
 import { LoginAuthType } from "../handlers/interfaces";
 import WechatHandler from "../handlers/wechatHandler";
 import telegramHandler from "../handlers/telegramHandler";
@@ -98,16 +98,16 @@ export default class UYUXAuth {
   // /user/tg/session/login
 
   // addSocailAccount
-  async addSocialAccount(loginProvider: number, did: string) {
+  async addSocialAccount() {
     // await this.model.insertOne(record)
   }
 
   // removeSocailAccount
-  async removeSocialAccount(loginProvider: "", did: "") {
+  async removeSocialAccount() {
     // await this.model.insertOne(record)
   }
 
-  async getSocailAccountList(did: "") {
+  async getSocailAccountList() {
     // await this.model.insertOne(record)
   }
 

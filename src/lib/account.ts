@@ -1,6 +1,5 @@
 // UYUX账号模块
-import UYUXClint from "./index";
-import * as UserInfo from "../handlers/interfaces";
+import UYUXClint from "../../index";
 
 export default class UYUXAccount {
   private client: UYUXClint;

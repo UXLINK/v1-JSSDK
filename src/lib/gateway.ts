@@ -1,37 +1,18 @@
 import axios, { type AxiosInstance } from "axios";
-import { refresh } from "@/utils";
-const dev = 'https://testuyuxapi.xws.cn'
-const pro = 'https://apiuxuy.xws.cn'
 export default class UYUXGateway {
-  private APIKey = 1;
+  // private APIKey = 1;
   private request: AxiosInstance;
   constructor() {
     this.request = axios.create({
-      baseURL:import.meta.env.VITE_APP_API_BASE_URL
-        // import.meta.env.MODE === "dev" || import.meta.env.MODE === "development"
-        //   ? dev
-        //   : pro,
+      baseURL: "https://apiuxuy.xws.cn",
     });
     this.request.interceptors.response.use(
-      (response) => {
+      (response: any) => {
         return Promise.resolve(response);
       },
-      (error) => {
+      (error: any) => {
         // console.log("error.response", error.response);
-        switch (error.response.status) {
-          case 401:
-            // console.log("token 过期");
-            const tokenId = localStorage.getItem("accessToken")
-              ? JSON.stringify(localStorage.getItem("accessToken"))
-              : "";
 
-            if (tokenId) {
-              refresh();
-            }
-            break;
-          default:
-            break;
-        }
         return Promise.reject(error);
       }
     );
@@ -54,12 +35,12 @@ export default class UYUXGateway {
       if (!data.success) {
         return Promise.reject(data);
       }
-      return data.data as T;
     }
+    return data.data as T;
   }
 
   // get 请求
-  async get<T = any>(uri: string, params: Record<string, any> = {}) {
+  async get<T = any>(uri: string) {
     const { data } = await this.request.get(uri, {
       headers: {
         Authorization: localStorage.getItem("accessToken"),
