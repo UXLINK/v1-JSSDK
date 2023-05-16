@@ -1,25 +1,16 @@
 // 社交账号授权模块
 
-import UYUXClint from "../../index";
+import UYUXGateway from "./gateway";
 import { LoginAuthType } from "../handlers/interfaces";
 import WechatHandler from "../handlers/wechatHandler";
 import telegramHandler from "../handlers/telegramHandler";
 export default class UYUXAuth {
-  private client: UYUXClint;
-  loginProvider!: number;
-  appid!: string;
-
-  constructor(client: UYUXClint) {
-    this.client = client;
-  }
-
   async connectTo(
     loginProvider: number,
     appid: string,
     redirect_uri: string,
     state: string
   ) {
-    // console.log("connectTo message appid", loginProvider, appid);
 
     if (loginProvider == LoginAuthType.wx) {
       const wechat = new WechatHandler();
@@ -35,7 +26,6 @@ export default class UYUXAuth {
     }
 
     return appid;
-    // await this.model.insertOne(record)
   }
 
   async toWX(code: string) {
@@ -43,7 +33,6 @@ export default class UYUXAuth {
       if (code) {
         const tokenInfo = await this.client.post("/user/wx/login", { code });
         if (tokenInfo) {
-          localStorage.setItem("accessToken", tokenInfo.accessToken);
           return tokenInfo.accessToken;
         }
         return "";
@@ -67,7 +56,6 @@ export default class UYUXAuth {
         };
         const tokenInfo = await this.client.post("/user/tg/login", obj);
         if (tokenInfo) {
-          localStorage.setItem("accessToken", tokenInfo.accessToken);
           return tokenInfo.accessToken;
         }
         return obj;
@@ -85,7 +73,6 @@ export default class UYUXAuth {
           session,
         });
         if (tokenInfo) {
-          localStorage.setItem("accessToken", tokenInfo.accessToken);
           return tokenInfo.accessToken;
         }
         return "";
@@ -93,22 +80,6 @@ export default class UYUXAuth {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  // /user/tg/session/login
-
-  // addSocailAccount
-  async addSocialAccount() {
-    // await this.model.insertOne(record)
-  }
-
-  // removeSocailAccount
-  async removeSocialAccount() {
-    // await this.model.insertOne(record)
-  }
-
-  async getSocailAccountList() {
-    // await this.model.insertOne(record)
   }
 
   getToken() {

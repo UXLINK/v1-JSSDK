@@ -2,25 +2,67 @@ import UYUXGateway from "./src/lib/gateway";
 import UYUXAuth from "./src/lib/auth";
 import UYUXAccount from "./src/lib/account";
 import UYUXSBT from "./src/lib/sbt";
+import profile from "./src/lib/profile";
+
+import { LoginAuthType } from "./src/handlers/interfaces";
 
 export default class UYUXClient {
-  private gateway: UYUXGateway;
+  private static apiKey: string | null = null;
+  private token: string | null = null;
+  private gateway: UYUXGateway | null = null;
+
   auth: UYUXAuth;
   account: UYUXAccount;
   sbt: UYUXSBT;
+  loginTpey: LoginAuthType;
+
+  static async register(apiKey: string): Promise<string> {
+    UYUXClient.apiKey = apiKey;
+
+    this.gateway = new UYUXGateway(UYUXClient.apiKey);
+
+    const token = await this.getToken(apiKey);
+    return token;
+  }
+
+  private static async getToken(apiKey: string): Promise<string> {
+    const response = await this.gateway.post("", "/api/v1/auth");
+    const token = response.token;
+    return token;
+  }
 
   constructor() {
-    this.gateway = new UYUXGateway();
-    this.auth = new UYUXAuth(this);
-    this.account = new UYUXAccount(this);
-    this.sbt = new UYUXSBT(this);
+    if (!UYUXClient.apiKey) {
+      throw new Error("API key not registered");
+    }
+    // this.auth = new UYUXAuth(this);
+    // this.account = new UYUXAccount(this);
+    this.gateway = new UYUXGateway(UYUXClient.apiKey); // 初始化 gateway 对象
+    // this.sbt = new UYUXSBT(this);
+    // this.loginTpey = new LoginAuthType(this)
+  }
+
+  init<T = any>(token: string) {
+    //
+    this.token = token;
+    console.log(token);
+
+    return {
+      profile: new profile(token, this.gateway),
+    };
   }
 
   get<T = any>(uri: string) {
+    if (!this.gateway) {
+      throw new Error("Gateway not initialized");
+    }
     return this.gateway.get<T>(uri);
   }
 
   post<T = any>(uri: string, params: Record<string, any> = {}) {
+    if (!this.gateway) {
+      throw new Error("Gateway not initialized");
+    }
     return this.gateway.post<T>(uri, params);
   }
   // did

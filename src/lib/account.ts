@@ -1,22 +1,14 @@
 // UYUX账号模块
-import UYUXClint from "../../index";
+import UYUXGateway from "./gateway";
 
 export default class UYUXAccount {
-  private client: UYUXClint;
+  private token: string | null = null;
+  private gateway: UYUXGateway;
 
-  constructor(client: UYUXClint) {
-    this.client = client;
+  constructor(token: string, gateway: UYUXGateway) {
+    this.token = token;
+    this.gateway = gateway;
   }
-
-  async login() {
-    // await this.model.insertOne(record)
-  }
-
-  // 登出
-  async logout() {}
-
-  //检测是否登录
-  async checkLogin() {}
 
   async getUserInfo(userUid = "") {
     let profile = {
@@ -28,15 +20,13 @@ export default class UYUXAccount {
     };
 
     try {
-      const info = await this.client.post("/user/social/public/info", {
+      const info = await this.gateway.post("/user/social/public/info", {
         userUid,
       });
-      // console.log("info", info);
       return info;
     } catch (error) {
       console.error(error);
     }
-
     return profile;
   }
 
