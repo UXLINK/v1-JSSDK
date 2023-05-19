@@ -46,7 +46,10 @@
           limit: 1,
           cursor: "",
         });
+
         userInfoData.value = await profileApi.value.userInfo(address);
+
+        touchSocialItem({uxuyId:recommentData.value.list[0].uxuyId});
       };
 
       const touchSocialItem = async (value: any) => {
