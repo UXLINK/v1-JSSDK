@@ -1,10 +1,14 @@
 <template>
   <div class="bg-[#86b142] h-screen">
-      <Header />
-      <div class="flex flex-row m-10 w-full">
-        <Wrapper class="basis-1/4 mr-6" :data="userInfoData" />
-        <DeviceFrame class="basis-1/3 mr-6" :data="recommentData" />
-      </div>
+    <Header />
+    <div class="flex flex-row m-10 w-full">
+      <Wrapper class="basis-1/4 mr-6" :data="userInfoData" />
+      <DeviceFrame
+        class="basis-2/3 mr-6"
+        :data="recommentData"
+        @onclick="touchSocialItem"
+        :otherData="myFriendData" />
+    </div>
   </div>
 </template>
 
@@ -27,16 +31,27 @@
       const UXUYToken = ref("");
       const recommentData = ref<any>();
       const userInfoData = ref<any>();
+      const myFriendData = ref<any>();
+      const profileApi = ref<any>();
 
       const initUXUYSDK = async () => {
         const token = await UXUYClient.register("ApiKey");
         UXUYToken.value = token;
+
         const instance = new UXUYClient();
-        const { profile } = instance.init(token);
-        recommentData.value = await profile.recomment({ limit: 1, cursor: "" });
-        userInfoData.value = await profile.userInfo(address);
-        console.log("recomment", recommentData.value);
-        console.log("userInfo", userInfoData);
+        const { profile } = instance.init(UXUYToken.value);
+        profileApi.value = profile;
+
+        recommentData.value = await profileApi.value.recomment({
+          limit: 1,
+          cursor: "",
+        });
+        userInfoData.value = await profileApi.value.userInfo(address);
+      };
+
+      const touchSocialItem = async (value: any) => {
+        console.log(value);
+        myFriendData.value = await profileApi.value.userInfo(value.uxuyId);
       };
 
       onMounted(() => {
@@ -46,6 +61,8 @@
       return {
         recommentData,
         userInfoData,
+        myFriendData,
+        touchSocialItem,
       };
     },
   };

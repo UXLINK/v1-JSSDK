@@ -19,7 +19,7 @@
               <p class="text-sm">注册时间:{{ data.createdAt }}</p>
             </div>
           </div>
-          <div class="flex flex-row justify-around w-full">
+          <div class="flex flex-row px-6 justify-around w-full">
             <img
               src="https://pbs.twimg.com/profile_images/1488548719062654976/u6qfBBkF_bigger.jpg"
               class="w-10 h-10 rounded-full" />
