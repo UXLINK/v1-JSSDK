@@ -1,69 +1,72 @@
 <template>
-  <div class="rounded-md border border-[#121212]">
-    <div class="flex">
-      <p>sign in</p>
-      <p>Your blockchain account in one-click</p>
-    </div>
-    <div class="flex flex-row justify-around">
-      <!-- <a :href="qrcodeUrl" target="_blank"> -->
-      <button class="rounded border border-[#101010]" @click="generateQRCode">
-        wechat Login2
-      </button>
+  <div class="rounded-3xl bg-[#313131] text-[#888] h-full">
+    <div class="flex flex-col justify-around items-center mx-10">
+      <div class="w-full mt-10">
+        <div
+          class="flex bg-[#faff44] rounded-3xl flex-col justify-around items-center text-[#0e0e0e] py-10">
+          <img :src="data.avatar" class="rounded-full w-16 h-16" />
+          <div class="text-center py-2 my-4">
+            <div
+              class="border border-[#cecd96] text-[#95981a] rounded-full py-2 mb-4 px-2">
+              <p class="text-sm">userName:{{ data.name }}</p>
+            </div>
+            <div
+              class="border border-[#cecd96] text-[#95981a] rounded-full p-2 mb-4">
+              <p class="text-sm">didName:{{ data.did }}</p>
+            </div>
+            <div
+              class="border border-[#cacd96] text-[#95981a] rounded-full p-2 mb-3">
+              <p class="text-sm">注册时间:{{ data.createdAt }}</p>
+            </div>
+          </div>
+          <div class="flex flex-row justify-around w-full">
+            <img
+              src="https://pbs.twimg.com/profile_images/1488548719062654976/u6qfBBkF_bigger.jpg"
+              class="w-10 h-10 rounded-full" />
+            <img
+              src="https://th.bing.com/th/id/OIP.PnnZyIJgilZ0iPT5aAoDWAAAAA?pid=ImgDet&rs=1"
+              class="w-10 h-10 rounded-full" />
+            <img
+              src=" https://th.bing.com/th/id/OIP.DNv9CEGSoqhZ_onc5W4TSAHaHa?pid=ImgDet&rs=1"
+              class="w-10 h-10 rounded-full" />
+          </div>
+        </div>
+      </div>
+      <div class="w-full pb-10">
+        <div class="flex flex-col px-2 mt-10">
+          <p class="text-xl">UXUY Token</p>
+          <p class="text-[#fff] text-3xl">2000</p>
+        </div>
+        <div class="flex flex-col px-2 mt-10">
+          <p class="text-xl">Scroll Token</p>
+          <p class="text-[#fff] text-3xl">0</p>
+        </div>
+      </div>
 
       <!-- <ButtonLogin
         mode="callback"
         size="large"
         bot-username="testLoginBtnBot"
         @callback="loginWithTelegram" /> -->
-
-      <a
-        href="https://oauth.telegram.org/auth?bot_id=6090573042&origin=https%3A%2F%2Fdocs.uxuy.io&embed=1&request_access=read&return_to=widgets%2Flogin.html"
-        target="_blank">
-        <button class="rounded border border-[#101010]">Telegram Login</button>
-      </a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
   import { ref } from "vue";
-  // import { ButtonLogin } from "televue";
-
   export default {
-    name: "App",
+    name: "UserInfo",
+    props: {
+      data: {
+        type: Object,
+        default: {},
+      },
+    },
     components: {
       // ButtonLogin,
     },
     setup() {
-      const qrcodeUrl = ref("");
-
-      const generateQRCode = () => {
-        // 替换为您自己的 appid、redirect_uri、state 等参数
-        const appId = "wxe86412a86fc30fc2";
-        const redirectUri = "https://uxuy.xws.cn/auth";
-        const state = "UXUY";
-
-        // 生成二维码链接
-        const qrcodeUrlValue = `https://open.weixin.qq.com/connect/qrconnect?appid=${appId}&redirect_uri=${encodeURIComponent(
-          redirectUri
-        )}&response_type=code&scope=snsapi_login&state=UXUY#wechat_redire`;
-        // const qrcodeUrlValue = `https://open.weixin.qq.com/connect/qrconnect?appid=${appId}&prompt=login&response_type=code&redirect_uri=${encodeURIComponent(
-        //   redirectUri
-        // )}&scope=snsapi_login&state=${state}&client_id=${appId}`;
-
-        qrcodeUrl.value = qrcodeUrlValue;
-        console.log("qrcodeUrl", qrcodeUrl);
-      };
-      const loginWithTelegram = async (user: any) => {
-        console.log("loginWithTelegram", user);
-        // Follow this link to see how you can verify user data on backend
-        // https://core.telegram.org/widgets/login#checking-authorization
-      };
-      return {
-        qrcodeUrl,
-        generateQRCode,
-        loginWithTelegram,
-      };
+      return {};
     },
   };
 </script>

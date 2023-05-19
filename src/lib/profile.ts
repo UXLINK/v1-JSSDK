@@ -1,4 +1,3 @@
-// SBT管理模块
 import UYUXGateway from "./gateway";
 export default class Profile {
   private token: string;
@@ -25,9 +24,12 @@ export default class Profile {
   }
 
   // To return a user's information.
-  async userInfo() {
+  async userInfo(address: string) {
     try {
-      const data = await this.gateway.get(this.token, "/api/v1/userInfo");
+      const data = await this.gateway.get(
+        this.token,
+        `/api/v1/userInfo?address=${address}`
+      );
       return data;
     } catch (error) {
       console.error(error);

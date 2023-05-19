@@ -28,20 +28,6 @@ export default class UYUXAuth {
     return appid;
   }
 
-  async toWX(code: string) {
-    try {
-      if (code) {
-        const tokenInfo = await this.client.post("/user/wx/login", { code });
-        if (tokenInfo) {
-          return tokenInfo.accessToken;
-        }
-        return "";
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   async toTg(params: any) {
     try {
       if (params.code) {
@@ -54,39 +40,14 @@ export default class UYUXAuth {
           hash: params.hash,
           photoUrl: params.photo_url,
         };
-        const tokenInfo = await this.client.post("/user/tg/login", obj);
-        if (tokenInfo) {
-          return tokenInfo.accessToken;
-        }
+        // const tokenInfo = await this.client.post("/user/tg/login", obj);
+        // if (tokenInfo) {
+        //   return tokenInfo.accessToken;
+        // }
         return obj;
       }
     } catch (error) {
       console.error(error);
     }
-  }
-
-  // session 转换成token
-  async toSessionTgLogin(session: any) {
-    try {
-      if (session) {
-        const tokenInfo = await this.client.post("/user/tg/session/login", {
-          session,
-        });
-        if (tokenInfo) {
-          return tokenInfo.accessToken;
-        }
-        return "";
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  getToken() {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      return token;
-    }
-    return "";
   }
 }

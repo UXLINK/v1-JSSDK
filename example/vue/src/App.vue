@@ -1,10 +1,10 @@
 <template>
-  <div class="">
-    <Header />
-    <div class="flex flex-row">
-      <!-- <Wrapper class="basis-1/2" /> -->
-      <!-- <DeviceFrame class="basis-1/2" /> -->
-    </div>
+  <div class="bg-[#86b142] h-screen">
+      <Header />
+      <div class="flex flex-row m-10 w-full">
+        <Wrapper class="basis-1/4 mr-6" :data="userInfoData" />
+        <DeviceFrame class="basis-1/3 mr-6" :data="recommentData" />
+      </div>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
   import Wrapper from "./components/wrapper.vue";
   import DeviceFrame from "./components/deviceFrame.vue";
   import UXUYClient from "../../../index.d.ts";
-  import { onMounted } from "vue";
+  import { onMounted, ref } from "vue";
 
   export default {
     name: "App",
@@ -23,21 +23,30 @@
       DeviceFrame,
     },
     setup() {
+      const address = "6ZuzN4MOiLjEqIsQ";
+      const UXUYToken = ref("");
+      const recommentData = ref<any>();
+      const userInfoData = ref<any>();
+
       const initUXUYSDK = async () => {
         const token = await UXUYClient.register("ApiKey");
+        UXUYToken.value = token;
         const instance = new UXUYClient();
         const { profile } = instance.init(token);
-        const recomment = await profile.recomment({limit:1,cursor:''});
-        const userInfo = await profile.userInfo()
-        console.log("recomment", recomment);
-        console.log("userInfo", userInfo);
+        recommentData.value = await profile.recomment({ limit: 1, cursor: "" });
+        userInfoData.value = await profile.userInfo(address);
+        console.log("recomment", recommentData.value);
+        console.log("userInfo", userInfoData);
       };
 
       onMounted(() => {
         initUXUYSDK();
       });
 
-      return {};
+      return {
+        recommentData,
+        userInfoData,
+      };
     },
   };
 </script>

@@ -35,18 +35,12 @@ export default class UYUXClient {
     if (!UYUXClient.apiKey) {
       throw new Error("API key not registered");
     }
-    // this.auth = new UYUXAuth(this);
-    // this.account = new UYUXAccount(this);
     this.gateway = new UYUXGateway(UYUXClient.apiKey); // 初始化 gateway 对象
-    // this.sbt = new UYUXSBT(this);
-    // this.loginTpey = new LoginAuthType(this)
   }
 
   init<T = any>(token: string) {
     //
     this.token = token;
-    console.log(token);
-
     return {
       profile: new profile(token, this.gateway),
     };

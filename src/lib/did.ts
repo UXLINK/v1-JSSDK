@@ -1,9 +1,10 @@
-// SBT管理模块
-import UYUXClint from "../../index";
-
+import UYUXGateway from "./gateway";
 export default class Did {
-  private client: UYUXClint;
-  constructor(client: UYUXClint) {
-    this.client = client;
+  private token: string;
+  private gateway: UYUXGateway;
+
+  constructor(token: string, gateway: UYUXGateway) {
+    this.token = token;
+    this.gateway = gateway;
   }
 }
