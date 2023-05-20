@@ -1,12 +1,12 @@
 <template>
-  <div class="flex items-center flex-col rounded-3xl bg-[#f3f8eb]">
+  <div class="flex items-center flex-col rounded-3xl bg-[#f3f8eb] overflow-scroll">
     <div class="flex flex-col justify-center items-center mt-6 mb-8">
       <p class="text-lg font-medium">My Social Graph</p>
     </div>
-    <div class="flex flex-row w-full mb-10">
+    <div class="flex flex-row w-full mb-10 overflow-scroll">
       <div
         v-if="data"
-        class="px-4 w-full h-[800px] overflow-x-hidden scroll-auto">
+        class="px-4 w-full overflow-x-hidden">
         <div
           v-for="item in data.list"
           class="flex flex-row justify-between px-3 py-2 rounded-full mx-2 mb-4 bg-white"

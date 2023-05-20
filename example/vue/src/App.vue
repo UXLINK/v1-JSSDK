@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-[#86b142] h-screen">
+  <div class="bg-[#86b142] overflow-hidden">
     <Header />
-    <div class="flex flex-row m-10 w-full">
+    <div class="flex flex-row m-10 w-full h-screen">
       <Wrapper class="basis-1/4 mr-6" :data="userInfoData" />
       <DeviceFrame
         class="basis-2/3 mr-6"
