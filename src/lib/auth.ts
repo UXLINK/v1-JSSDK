@@ -40,10 +40,6 @@ export default class UYUXAuth {
           hash: params.hash,
           photoUrl: params.photo_url,
         };
-        // const tokenInfo = await this.client.post("/user/tg/login", obj);
-        // if (tokenInfo) {
-        //   return tokenInfo.accessToken;
-        // }
         return obj;
       }
     } catch (error) {

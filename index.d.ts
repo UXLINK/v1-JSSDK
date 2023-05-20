@@ -1,8 +1,7 @@
 import UYUXGateway from "./src/lib/gateway";
 import UYUXAuth from "./src/lib/auth";
-import UYUXAccount from "./src/lib/account";
-import UYUXSBT from "./src/lib/sbt";
 import profile from "./src/lib/profile";
+import MPC from "./src/lib/mpc";
 
 import { LoginAuthType } from "./src/handlers/interfaces";
 
@@ -12,7 +11,6 @@ export default class UYUXClient {
   private gateway: UYUXGateway | null = null;
 
   auth: UYUXAuth;
-  account: UYUXAccount;
   sbt: UYUXSBT;
   loginTpey: LoginAuthType;
 
@@ -43,6 +41,7 @@ export default class UYUXClient {
     this.token = token;
     return {
       profile: new profile(token, this.gateway),
+      mpc:new MPC(token, this.gateway)
     };
   }
 
