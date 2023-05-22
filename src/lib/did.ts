@@ -7,4 +7,29 @@ export default class Did {
     this.token = token;
     this.gateway = gateway;
   }
+  // Name-resolving services.
+  async getAddress(did: any) {
+    try {
+      const data = await this.gateway.get(
+        this.token,
+        `/api/v1/getAddress?did=${did}`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Reverse Resolve DID Name
+  async getName(address: any) {
+    try {
+      const data = await this.gateway.get(
+        this.token,
+        `/api/v1/getName?address=${address}`
+      );
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

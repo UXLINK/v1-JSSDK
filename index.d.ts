@@ -2,6 +2,7 @@ import UYUXGateway from "./src/lib/gateway";
 import UYUXAuth from "./src/lib/auth";
 import profile from "./src/lib/profile";
 import MPC from "./src/lib/mpc";
+import DID from "./src/lib/did";
 
 import { LoginAuthType } from "./src/handlers/interfaces";
 
@@ -41,7 +42,8 @@ export default class UYUXClient {
     this.token = token;
     return {
       profile: new profile(token, this.gateway),
-      mpc:new MPC(token, this.gateway)
+      mpc: new MPC(token, this.gateway),
+      did: new DID(token, this.gateway),
     };
   }
 

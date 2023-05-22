@@ -4,12 +4,12 @@
 ![npm](https://img.shields.io/npm/dw/@uxuy-js-sdk)
 
 ## 💡 Features
-- More web2 social platforms, such as Twitter, WhatsApp, Facebook, and Discord
+- <input type="checkbox" checked>  Web2 user information as a unique DID (Decentralized Identifier)
 
-- Login with email
-- Web2 user information as a unique DID (Decentralized Identifier)
-- Transfers between DIDs.
-- MPC (Multi-Party Computation) functionality.
+- [ x ] More web2 social platforms, such as Twitter, WhatsApp, Facebook, and Discord
+- [ x ] Login with email
+- [ x ] Transfers between DIDs.
+- [ x ] MPC (Multi-Party Computation) functionality.
 
 ## ⚡ Quick Start
 
@@ -19,7 +19,7 @@ npm install --save @uxuy-js-sdk
 
 ### install with vite and ts
 
-create env.d.ts
+Add `declare module "uxuy-js-sdk"` in the `env.d.ts` file.
 
 ```shell
 /// <reference types="vite/client" />
@@ -34,18 +34,22 @@ declare module "uxuy-js-sdk";
 
 ### Initialize UXUYSDK for your preferred Dapp 
 ```js
-import UXUY from "uxuy-js-sdk"
+import UXUYClient from "uxuy-js-sdk"
 
-const { account, sbt, auth } = new UXUY()
+const token = await UXUYClient.register("ApiKey");
 
+const instance = new UXUYClient();
+
+const { profile, MPC, DID } = instance.init(UXUYToken.value);
 ```
 
-## 🩹 Examples
-
-Come soon
 ## 🌐 Demo
-
-Come soon
+Get started
+```js
+cd example/vue/
+npm install --save
+npm run dev
+```
 
 ## 💬 Troubleshooting and Support
 
